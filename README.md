@@ -11,7 +11,6 @@ This package introduces a PyTorch perceptual loss implementation based on the [C
 - Support for different ConvNext model scales (`TINY`, `SMALL`, `BASE`, `LARGE`)
 - Configurable feature layers and weights for fine-grained control
 - Optional Gram matrix computation for style transfer tasks
-- Customizable layer weights or weight decay for balanced feature importance
 
 ## Installation
 
