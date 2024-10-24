@@ -16,8 +16,8 @@ This package introduces a PyTorch perceptual loss implementation based on the [C
 ## Installation
 
 ```bash
-git clone https://github.com/sypsyp97/ConvNext_Perceptual_Loss.git
-cd ConvNext_Perceptual_Loss
+git clone https://github.com/sypsyp97/convnext_perceptual_loss.git
+cd convnext_perceptual_loss
 pip install -e .
 ```
 
