@@ -268,7 +268,7 @@ def main():
     
     # Create loss function instance
     loss_fn = ConvNextPerceptualLoss(
-        model_type=ConvNextType.TINY,
+        model_type=ConvNextType.BASE,
         device=device,
         feature_layers=[0, 2, 4, 6, 8, 10, 12, 14],  # Use multiple layer features
         use_gram=False,  # Use Gram matrix for loss computation
@@ -288,6 +288,7 @@ def main():
     # Compute and print loss
     loss = loss_fn(input_image, target_image)
     print(f"Computed loss: {loss.item()}")
+
 
 if __name__ == '__main__':
     main()

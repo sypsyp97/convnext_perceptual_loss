@@ -29,7 +29,7 @@ from convnext_perceptual_loss import ConvNextPerceptualLoss, ConvNextType
 # Initialize the loss function
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 loss_fn = ConvNextPerceptualLoss(
-    model_type=ConvNextType.TINY,
+    model_type=ConvNextType.BASE,
     device=device,
     feature_layers=[0, 2, 4, 6, 8, 10, 12, 14],
     use_gram=False,
