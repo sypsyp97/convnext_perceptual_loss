@@ -8,7 +8,7 @@ This package introduces a PyTorch perceptual loss implementation based on the [C
 
 ## Features
 
-- Support for different ConvNext model scales (TINY, SMALL, BASE, LARGE)
+- Support for different ConvNext model scales (`TINY`, `SMALL`, `BASE`, `LARGE`)
 - Configurable feature layers and weights for fine-grained control
 - Optional Gram matrix computation for style transfer tasks
 - Customizable layer weights or weight decay for balanced feature importance
@@ -16,8 +16,8 @@ This package introduces a PyTorch perceptual loss implementation based on the [C
 ## Installation
 
 ```bash
-git clone https://github.com/sypsyp97/ConvNext_Perceptual_Loss.git
-cd ConvNext_Perceptual_Loss
+git clone https://github.com/sypsyp97/convnext_perceptual_loss.git
+cd convnext_perceptual_loss
 pip install -e .
 ```
 
@@ -37,15 +37,17 @@ loss_fn = ConvNextPerceptualLoss(
     layer_weight_decay=0.99 
 )
 
-# Example 1: RGB Images (B, C=3, H, W)
-rgb_input = torch.randn(1, 3, 256, 256).to(device)
-rgb_target = torch.randn(1, 3, 256, 256).to(device)
-rgb_loss = loss_fn(rgb_input, rgb_target)
+# Example 1: Computing loss between RGB images
+rgb_generated = torch.randn(1, 3, 256, 256).to(device)  # Generated/predicted image
+rgb_target = torch.randn(1, 3, 256, 256).to(device)     # Ground truth image
+perceptual_loss_rgb = loss_fn(rgb_generated, rgb_target)
+print(f"RGB Perceptual Loss: {perceptual_loss_rgb.item():.4f}")
 
-# Example 2: Grayscale Images (B, C=1, H, W)
-gray_input = torch.randn(1, 1, 256, 256).to(device)
+# Example 2: Computing loss between grayscale images
+gray_generated = torch.randn(1, 1, 256, 256).to(device)
 gray_target = torch.randn(1, 1, 256, 256).to(device)
-gray_loss = loss_fn(gray_input, gray_target)
+perceptual_loss_gray = loss_fn(gray_generated, gray_target)
+print(f"Grayscale Perceptual Loss: {perceptual_loss_gray.item():.4f}")
 ```
 
 The loss function automatically handles both RGB (3-channel) and grayscale (1-channel) images. Input tensors should follow the PyTorch convention of `(batch_size, channels, height, width)` format.
