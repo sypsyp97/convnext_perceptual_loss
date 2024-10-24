@@ -12,7 +12,7 @@ setup(
     description="A perceptual loss using ConvNext models",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/sypsyp97/ConvNext_Perceptual_Loss",
+    url="https://github.com/sypsyp97/convNext_perceptual_loss",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 3 - Alpha",
