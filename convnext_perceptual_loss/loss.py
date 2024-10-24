@@ -4,10 +4,6 @@ import torchvision.models
 from enum import Enum
 from typing import List, Tuple, Optional
 
-# Set random seed for reproducibility
-seed = 42
-torch.manual_seed(seed)
-
 
 class ConvNextType(Enum):
     """Available ConvNext model types
@@ -261,6 +257,11 @@ def main():
     
     Creates random test data and computes loss to verify module functionality.
     """
+
+    # Set random seed for reproducibility
+    seed = 42
+    torch.manual_seed(seed)
+    
     # Set computing device
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f"Using device: {device}")
