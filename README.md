@@ -4,7 +4,7 @@
 
 Traditional pixel-wise loss functions like MSE or L1 often fail to capture the perceptual quality of images, leading to blurry or unrealistic results in many computer vision tasks. While VGG-based perceptual losses have been widely used to address this issue, they rely on older architecture designs that may not capture modern image features effectively.
 
-This package introduces a perceptual loss implementation based on the modern ConvNext architecture. ConvNext models have shown superior performance in various vision tasks, making them excellent feature extractors for perceptual loss computation. The hierarchical feature representation and modern architectural improvements in ConvNext lead to better capture of both low-level details and high-level semantic information.
+This package introduces a perceptual loss implementation based on the ConvNext architecture. ConvNext models have shown superior performance in various vision tasks, making them excellent feature extractors for perceptual loss computation. The hierarchical feature representation and modern architectural improvements in ConvNext lead to better capture of both low-level details and high-level semantic information.
 
 ## Features
 
