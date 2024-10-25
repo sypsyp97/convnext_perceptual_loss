@@ -20,51 +20,52 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     
-    - name: Add conda to system path
-      run: |
-        # Add conda to system path
-        echo $CONDA/bin >> $GITHUB_PATH
-      shell: bash
+    - name: Setup Miniconda
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        activate-environment: test-env
+        python-version: ${{ matrix.python-version }}
+        auto-activate-base: true
     
     - name: Install dependencies (Linux)
       if: runner.os == 'Linux'
+      shell: bash -l {0}
       run: |
         conda install pytorch torchvision cpuonly -c pytorch
         python -m pip install --upgrade pip
         pip install pytest pytest-cov flake8
         pip install -e .
-      shell: bash
 
     - name: Install dependencies (Windows)
       if: runner.os == 'Windows'
+      shell: powershell
       run: |
         conda install pytorch torchvision cpuonly -c pytorch
         python -m pip install --upgrade pip
         pip install pytest pytest-cov flake8
         pip install -e .
-      shell: cmd
     
     - name: List environment info
+      shell: bash -l {0}
       run: |
         conda info
         conda list
         pip list
         python -c "import torch; print(f'PyTorch {torch.__version__}')"
         python -c "import torchvision; print(f'TorchVision {torchvision.__version__}')"
-      shell: bash
     
     - name: Lint with flake8
+      shell: bash -l {0}
       run: |
         # stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-      shell: bash
     
     - name: Test with pytest
+      shell: bash -l {0}
       run: |
         pytest tests/ --cov=convnext_perceptual_loss --cov-report=xml
-      shell: bash
     
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
