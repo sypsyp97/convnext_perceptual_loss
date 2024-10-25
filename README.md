@@ -1,6 +1,6 @@
-[![DOI](https://zenodo.org/badge/877607688.svg)](https://doi.org/10.5281/zenodo.13991193)
-
 # ConvNeXt Perceptual Loss
+
+[![DOI](https://zenodo.org/badge/877607688.svg)](https://doi.org/10.5281/zenodo.13991193)
 
 ## Motivation
 
@@ -59,7 +59,7 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ## Citation
 
-```
+```bibtex
 @misc{convnext_perceptual_loss2024,
     title={ConvNext Perceptual Loss: A Modern Perceptual Loss Implementation},
     author={Yipeng Sun},
