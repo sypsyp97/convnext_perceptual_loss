@@ -54,3 +54,16 @@ The loss function automatically handles both RGB (3-channel) and grayscale (1-ch
 ## License
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+
+## Citation
+
+```
+@misc{convnext_perceptual_loss2024,
+    title={ConvNext Perceptual Loss: A Modern Perceptual Loss Implementation},
+    author={Yipeng Sun},
+    year={2024},
+    publisher={GitHub},
+    journal={GitHub repository},
+    howpublished={\url{https://github.com/sypsyp97/convnext_perceptual_loss}}
+}
+```
