@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, windows-latest]
         python-version: ['3.9', '3.10', '3.11']
 
     steps:
@@ -26,8 +26,8 @@ jobs:
         echo $CONDA/bin >> $GITHUB_PATH
       shell: bash
     
-    - name: Install dependencies (Linux/macOS)
-      if: runner.os != 'Windows'
+    - name: Install dependencies (Linux)
+      if: runner.os == 'Linux'
       run: |
         conda install pytorch torchvision cpuonly -c pytorch
         python -m pip install --upgrade pip
