@@ -1,6 +1,6 @@
 [![DOI](https://zenodo.org/badge/877607688.svg)](https://doi.org/10.5281/zenodo.13991193)
 
-# ConvNext Perceptual Loss
+# ConvNeXt Perceptual Loss
 
 ## Motivation
 
