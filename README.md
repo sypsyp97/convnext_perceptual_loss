@@ -33,7 +33,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 loss_fn = ConvNextPerceptualLoss(
     model_type=ConvNextType.BASE,
     device=device,
-    feature_layers=[0, 2, 4, 6, 8, 10, 12, 14],
+    feature_layers=[0, 2, 4, 6, 8, 10, 12, 14], # Max index is 14 here
     use_gram=False,
     layer_weight_decay=0.99 
 )
