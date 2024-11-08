@@ -169,5 +169,95 @@ class TestConvNextPerceptualLoss(unittest.TestCase):
                 self.assertIsInstance(loss, torch.Tensor)
                 self.assertGreaterEqual(loss.item(), 0)
 
+    def test_gradient_flow(self):
+        """Test gradient flow through the loss function"""
+        # Set manual seed for reproducibility
+        torch.manual_seed(42)
+        if torch.cuda.is_available():
+            torch.cuda.manual_seed(42)
+        
+        # Create input tensor that requires gradients
+        input_tensor = torch.randn(
+            1, 3, 64, 64,  # Smaller size for faster testing
+            device=self.device
+        ).requires_grad_()  # Use requires_grad_() instead of requires_grad=True
+        
+        # Create target tensor
+        target_tensor = torch.randn(1, 3, 64, 64, device=self.device)
+        
+        # Test different configurations
+        loss_configs = {
+            'default': self.loss_fn_default,
+            'gram': self.loss_fn_gram,
+            'custom': self.loss_fn_custom
+        }
+        
+        for name, loss_fn in loss_configs.items():
+            with self.subTest(configuration=name):
+                # Create a fresh tensor for each test to avoid accumulating computations
+                test_input = input_tensor.clone().detach().requires_grad_()
+                
+                # Compute loss
+                loss = loss_fn(test_input, target_tensor)
+                
+                # Check loss properties
+                self.assertTrue(loss.requires_grad, f"{name}: Loss should require gradients")
+                self.assertEqual(loss.dim(), 0, f"{name}: Loss should be a scalar")
+                
+                # Compute gradients
+                loss.backward()
+                
+                # Check input gradients
+                self.assertIsNotNone(test_input.grad, 
+                                f"{name}: Input gradient should not be None")
+                self.assertGreater(torch.norm(test_input.grad).item(), 0,
+                                f"{name}: Input gradient norm should be > 0")
+                
+                # Check gradient statistics
+                grad_mean = test_input.grad.mean().item()
+                grad_std = test_input.grad.std().item()
+                self.assertTrue(
+                    -1 < grad_mean < 1,
+                    f"{name}: Gradient mean ({grad_mean}) should be reasonable"
+                )
+                self.assertTrue(
+                    0 < grad_std < 10,
+                    f"{name}: Gradient std ({grad_std}) should be reasonable"
+                )
+        
+        # Test with different input ranges
+        # Create independent tensors for different ranges
+        input_01 = torch.rand(
+            1, 3, 64, 64,
+            device=self.device
+        ).requires_grad_()
+        
+        input_n11 = (torch.rand(
+            1, 3, 64, 64,
+            device=self.device
+        ) * 2 - 1).requires_grad_()
+        
+        # Test both ranges
+        range_tests = {
+            '[0,1] range': (input_01, self.loss_fn_custom),
+            '[-1,1] range': (input_n11, self.loss_fn_default)
+        }
+        
+        for name, (input_t, loss_fn) in range_tests.items():
+            with self.subTest(range_test=name):
+                # Reset gradients
+                if input_t.grad is not None:
+                    input_t.grad.zero_()
+                    
+                loss = loss_fn(input_t, target_tensor)
+                loss.backward()
+                
+                self.assertIsNotNone(input_t.grad,
+                                f"{name}: Input gradient should not be None")
+                grad_norm = torch.norm(input_t.grad).item()
+                self.assertGreater(grad_norm, 0,
+                                f"{name}: Gradient norm ({grad_norm}) should be > 0")
+
+    
 if __name__ == '__main__':
     unittest.main()
