@@ -8,6 +8,8 @@ Traditional pixel-wise loss functions like MSE or L1 often fail to capture the p
 
 This package introduces a PyTorch perceptual loss implementation based on the [ConvNeXt](https://arxiv.org/abs/2201.03545) architecture. These models have shown superior performance in various vision tasks, making them excellent feature extractors for perceptual loss computation.
 
+Please star this project if you use this repository in your research. Thank you!
+
 ## Features
 
 - Support for different ConvNext model scales (`TINY`, `SMALL`, `BASE`, `LARGE`)
